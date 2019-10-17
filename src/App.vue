@@ -1,19 +1,26 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <FirstVueClass msg1="Hello My First Vue Class" msg2="OMG!!"/>
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+      <TaskForm/>
+      <TextInput/>
+      <CheckBoxComponent/>
   </div>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
-import FirstVueClass from './components/FirstVueClass.vue'
+//import FirstVueClass from './components/FirstVueClass.vue'
+import TaskForm from '@/components/TaskForm'
+import TextInput from "@/components/TextInput";
+import CheckBoxComponent from "@/components/CheckBoxComponent";
 
 export default {
   name: 'app',
   components: {
-    FirstVueClass
+      TaskForm,
+      TextInput,
+      CheckBoxComponent,
   }
 }
 </script>
