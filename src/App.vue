@@ -3,14 +3,13 @@
     <img alt="Vue logo" src="./assets/logo.png">
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
       <TaskForm/>
+      <TaskForm/>
       <TextInput/>
       <CheckBoxComponent/>
   </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
-//import FirstVueClass from './components/FirstVueClass.vue'
 import TaskForm from '@/components/TaskForm'
 import TextInput from "@/components/TextInput";
 import CheckBoxComponent from "@/components/CheckBoxComponent";
