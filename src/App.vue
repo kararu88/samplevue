@@ -2,24 +2,17 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-      <TaskForm/>
-      <TaskForm/>
-      <TextInput/>
-      <CheckBoxComponent/>
+    <TaskForm/>
   </div>
 </template>
 
 <script>
-import TaskForm from '@/components/TaskForm'
-import TextInput from "@/components/TextInput";
-import CheckBoxComponent from "@/components/CheckBoxComponent";
+import TaskForm from './components/TaskForm'
 
 export default {
   name: 'app',
   components: {
       TaskForm,
-      TextInput,
-      CheckBoxComponent,
   }
 }
 </script>
