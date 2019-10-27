@@ -1,12 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import cart from 'modules/cart'
+import timeline from '@/store/modules/timeline'
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     modules: {
-        cart
+        timeline,
     },
-    strict: debug,
 })

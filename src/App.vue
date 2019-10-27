@@ -3,16 +3,19 @@
     <img alt="Vue logo" src="./assets/logo.png">
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <TaskForm/>
+    <TimeLine/>
   </div>
 </template>
 
 <script>
 import TaskForm from './components/TaskForm'
+import TimeLine from './components/TimeLine'
 
 export default {
   name: 'app',
   components: {
       TaskForm,
+      TimeLine,
   }
 }
 </script>
