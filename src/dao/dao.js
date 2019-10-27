@@ -2,24 +2,21 @@ import TimeLineModel from "./timelinemodel";
 
 export default {
 
-    getTimeLines(){
+    async getTimeLines(){
 
         let timeLines = [];
 
-        fetch('https://71i2no6je7.execute-api.ap-northeast-1.amazonaws.com/default/getCurrentSec')
-            .then(response => response.json())
-            .then(json => {
+        let response = await fetch('https://71i2no6je7.execute-api.ap-northeast-1.amazonaws.com/default/getCurrentSec');
+        let data = response.json();
 
-                timeLines.push(new TimeLineModel(
-                    json.pk
-                    ,json.appli_user_pk
-                    ,json.task_name
-                    ,json.start_time
-                    ,json.end_time
-                    ,json.actual_time
-                ));
-
-            });
+        timeLines.push(new TimeLineModel(
+            data.pk
+            , data.appli_user_pk
+            , data.task_name
+            , data.start_time
+            , data.end_time
+            , data.actual_time
+        ));
 
         return timeLines;
     }
