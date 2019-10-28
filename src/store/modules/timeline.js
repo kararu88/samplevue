@@ -8,7 +8,7 @@ const state = {
 // getters
 const getters = {
     getTimelines: (state) => {
-        return state.timelines;
+        console.log(state.timelines);
     },
 };
 
@@ -16,7 +16,7 @@ const getters = {
 const actions = {
     // Initialize
     initTimeLines ({ commit }) {
-        commit('setTimeLines', dao.getTimeLines());
+        dao.getTimeLines(timelines =>  commit('setTimeLines', timelines));
     },
 };
 
@@ -24,6 +24,7 @@ const actions = {
 const mutations = {
     setTimeLines (state, timeLines) {
         state.timelines = timeLines ;
+        console.log("setTimeLines : " + JSON.stringify(state.timelines));
     },
 };
 

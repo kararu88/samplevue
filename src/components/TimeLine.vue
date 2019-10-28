@@ -1,12 +1,13 @@
 <template>
     <div class="TimeLine">
         <p>ほげほげ</p>
-        <p>{{ JSON.stringify(timelines) }}</p>
+        <p>{{ getLength }}</p>
+        <p>{{ getLength.timelines[0].pk }}</p>
+        <p>{{ getLength.timelines[0].appli_user_pk }}</p>
+        <p>{{ getLength.timelines[0].task_name }}</p>
+        <p>{{ getLength.timelines[0].start_time }}</p>
+        <p>{{ getLength.timelines[0].end_time }}</p>
 
-        <button
-                @click="getTimelines()">
-            get state
-        </button>
     </div>
 </template>
 
@@ -20,13 +21,11 @@
             this.$store.dispatch('timeline/initTimeLines');
         },
 
-        methods: mapActions('timeline', [
-            'getTimelines'
-        ]),
-
-        computed: mapState({
-            timelines: state => state.timelines
-        }),
+        computed: {
+            getLength() {
+                return this.$store.state.timeline;
+            }
+        }
     }
 </script>
 
