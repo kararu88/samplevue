@@ -1,13 +1,10 @@
 <template>
     <div class="TimeLine">
-        <p>ほげほげ</p>
-        <p>{{ getLength }}</p>
-        <p>{{ getLength.timelines[0].pk }}</p>
-        <p>{{ getLength.timelines[0].appli_user_pk }}</p>
-        <p>{{ getLength.timelines[0].task_name }}</p>
-        <p>{{ getLength.timelines[0].start_time }}</p>
-        <p>{{ getLength.timelines[0].end_time }}</p>
-
+        <b-button-group>
+            <b-button v-on:click="showTodayTimeLines">today</b-button>
+            <b-button v-on:click="showYesterdayTimeLines">yesterday</b-button>
+        </b-button-group>
+        <b-table striped hover :items="getLength.timelines.show"></b-table>
     </div>
 </template>
 
@@ -25,7 +22,14 @@
             getLength() {
                 return this.$store.state.timeline;
             }
-        }
+        },
+
+        methods: {
+                 ...mapActions('timeline',[
+                    'showTodayTimeLines',
+                    'showYesterdayTimeLines',
+                     ])
+         }
     }
 </script>
 

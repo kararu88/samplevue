@@ -1,7 +1,19 @@
-import TimeLineModel from "./timelinemodel";
+import TimeLineModel from "@dao/timelinemodel";
+import util from "@/util"
 
 export default {
 
+    getTimeLinesFromMyJson(cb , url) {
+        // fetch('https://71i2no6je7.execute-api.ap-northeast-1.amazonaws.com/default/getCurrentSec')
+        fetch(url,{mode:'cors'})
+            .then(response => response.json())
+            .then(json => {
+                timeLines.push(new TimeLineModel(
+                    json.timelines[0]
+                ));
+                cb(timeLines);
+            });
+    }
     /**
      * 非同期処理のため、callback関数により値を反映させる。
      *
@@ -9,26 +21,31 @@ export default {
      *
      * @param cb
      */
-    getTimeLines(cb){
+    getTimeLines(cb , date){
 
         let timeLines = [];
+        console.log(date);
 
-        // fetch('https://71i2no6je7.execute-api.ap-northeast-1.amazonaws.com/default/getCurrentSec')
-        fetch('http://api.myjson.com/bins/zxl2s',{mode:'cors'})
-            .then(response => response.json())
-            .then(json => {
+        switch(date){
+            [util.getYesterdayDate()] :
+                this.getTimeLinesFromMyJson(cb , '');
+                break;
+            [util.getTodayDate()] :
+                this.getTimeLinesFromMyJson(cb , '');
+                break;
+            default:
+                this.getTimeLinesFromMyJson(cb , '');
+                break;
+        }
+    },
 
-                timeLines.push(new TimeLineModel(
-                    json.timelines.pk
-                    ,json.timelines.appli_user_pk
-                    ,json.timelines.task_name
-                    ,json.timelines.start_time
-                    ,json.timelines.end_time
-                    ,json.timelines.actual_time
-                ));
-                cb(timeLines);
-            });
+    getYesterdayTimeLines(cb){
+        this.getTimeLines(cb,util.getYesterdayDate());
+    },
 
-    }
+    getTodayTimeLines(cb){
+        let today = new Date().toISOString().substr(0,10);
+        this.getTimeLines(cb,util.getTodayDate());
+    },
 
 }
