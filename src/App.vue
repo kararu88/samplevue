@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+    <b-container>
+    <h1 id="title">作業実績記録アプリ</h1>
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <TaskForm/>
     <TimeLine/>
+    </b-container>
   </div>
 </template>
 
@@ -29,4 +31,11 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+#title {
+  text-align: left;
+  margin-bottom: 0.4em;
+  padding-left: 0.3em;
+}
+
 </style>

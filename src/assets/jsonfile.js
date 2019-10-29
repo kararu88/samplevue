@@ -3,17 +3,89 @@
 
 // getTimeLines('date')
 // 引数で指定された日付のtimelineを返す。
-// http://myjson.com/zxl2s
-// http://api.myjson.com/bins/zxl2s
+
+// http://myjson.com/wzbgk
+// http://api.myjson.com/bins/wzbgk
 let get_time_lines_one_day = {
     "timelines": [
-         { "pk": 1, "appli_user_pk": 6, "task_name": "睡眠", "date": "2019-10-18" ,"start_time": "2019-10-18 00:00:00", "end_time": "2019-10-18 06:00:00", "actual_time": "06:00:00" }
+        { "pk": 1, "appli_user_pk": 6, "task_name": "睡眠", "date": "2019-10-18" ,"start_time": "2019-10-18 00:00:00", "end_time": "2019-10-18 06:00:00", "actual_time": "06:00:00" }
         ,{ "pk": 2, "appli_user_pk": 6, "task_name": "午前勤務", "date": "2019-10-18" ,"start_time": "2019-10-18 00:00:00", "end_time": "2019-10-18 06:00:00", "actual_time": "0:00:00" }
         ,{ "pk": 3, "appli_user_pk": 6, "task_name": "午前勤務", "date": "2019-10-18" ,"start_time": "2019-10-18 00:00:00", "end_time": "2019-10-18 06:00:00", "actual_time": "0:00:00" }
         ,{ "pk": 4, "appli_user_pk": 6, "task_name": "お昼ご飯", "date": "2019-10-18" ,"start_time": "2019-10-18 00:00:00", "end_time": "2019-10-18 06:00:00", "actual_time": "06:00:00" }
         ,{ "pk": 5, "appli_user_pk": 6, "task_name": "午後勤務", "date": "2019-10-18" ,"start_time": "2019-10-18 00:00:00", "end_time": "2019-10-18 06:00:00", "actual_time": "06:00:00" }
         ,{ "pk": 6, "appli_user_pk": 6, "task_name": "帰宅", "date": "2019-10-18" ,"start_time": "2019-10-18 00:00:00", "end_time": "2019-10-18 06:00:00", "actual_time": "06:00:00" }
         ,{ "pk": 7, "appli_user_pk": 6, "task_name": "夕飯", "date": "2019-10-18" ,"start_time": "2019-10-18 00:00:00", "end_time": "2019-10-18 06:00:00", "actual_time": "06:00:00" }
+    ]
+};
+
+// Yesterday
+// http://myjson.com/zxl2s
+// http://api.myjson.com/bins/zxl2s
+let get_time_lines_today = {
+    "timelines": [
+        {
+            "pk": 8,
+            "appli_user_pk": 6,
+            "task_name": "睡眠",
+            "date": "2019-10-19",
+            "start_time": "2019-10-19 00:00:00",
+            "end_time": "2019-10-19 06:00:00",
+            "actual_time": "06:00:00"
+        }
+        , {
+            "pk": 9,
+            "appli_user_pk": 6,
+            "task_name": "移動",
+            "date": "2019-10-19",
+            "start_time": "2019-10-19 08:00:00",
+            "end_time": "2019-10-19 09:00:00",
+            "actual_time": "01:00:00"
+        }
+        , {
+            "pk": 10,
+            "appli_user_pk": 6,
+            "task_name": "午前勤務",
+            "date": "2019-10-19",
+            "start_time": "2019-10-19 09:00:00",
+            "end_time": "2019-10-19 12:00:00",
+            "actual_time": "03:00:00"
+        }
+        , {
+            "pk": 11,
+            "appli_user_pk": 6,
+            "task_name": "お昼ご飯",
+            "date": "2019-10-19",
+            "start_time": "2019-10-19 12:00:00",
+            "end_time": "2019-10-19 13:00:00",
+            "actual_time": "01:00:00"
+        }
+        , {
+            "pk": 12,
+            "appli_user_pk": 6,
+            "task_name": "午後勤務",
+            "date": "2019-10-19",
+            "start_time": "2019-10-19 13:00:00",
+            "end_time": "2019-10-19 18:00:00",
+            "actual_time": "05:00:00"
+        }
+        , {
+            "pk": 13,
+            "appli_user_pk": 6,
+            "task_name": "帰宅",
+            "date": "2019-10-19",
+            "start_time": "2019-10-19 18:00:00",
+            "end_time": "2019-10-19 19:00:00",
+            "actual_time": "01:00:00"
+        }
+        , {
+            "pk": 14,
+            "appli_user_pk": 6,
+            "task_name": "夕飯",
+            "date": "2019-10-19",
+            "start_time": "2019-10-19 20:00:00",
+            "end_time": "2019-10-19 20:30:00",
+            "actual_time": "00:30:00"
+        }
     ]
 };
 

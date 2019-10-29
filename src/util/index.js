@@ -1,3 +1,4 @@
+import TimeLineModel from '@/dao/timelinemodel'
 
 const getTodayDate = () => {
     let today = new Date();
@@ -10,7 +11,19 @@ const getYesterdayDate = () => {
     return today.toISOString().substr(0,10);
 };
 
+const buildTimeLineModels = (timelinesJson) => {
+
+    const TimeLineModels = [];
+
+    for(let timelineJson of timelinesJson){
+        TimeLineModels.push(new TimeLineModel(timelineJson));
+    }
+
+    return TimeLineModels;
+};
+
 export default {
     getTodayDate,
     getYesterdayDate,
+    buildTimeLineModels,
 }

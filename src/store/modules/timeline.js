@@ -1,20 +1,16 @@
 import dao from "@/dao/dao";
-import util from "@/util/"
+import util from "@/util/index"
 
 // initial state
 const state = {
-    timelines: {
-        [util.getTodayDate()]:[],
-        [util.getYesterdayDate()]:[],
-        show:[],
-    },
+    [util.getTodayDate()]: [],
+    [util.getYesterdayDate()]: [],
+    show: [],
 };
 
 // getters
 const getters = {
-    getTimelines: (state) => {
-        console.log(state.timelines);
-    },
+
 };
 
 // actions
@@ -25,35 +21,36 @@ const actions = {
     },
 
     showTodayTimeLines ({ commit }) {
-        if(state.timelines[util.getTodayDate()].length === 0) {
-            dao.getTodayTimeLines(timelines => commit('setTimeLines', timelines, util.getTodayDate()));
+        if(state[util.getTodayDate()].length === 0) {
+            dao.getTodayTimeLines(timelines => commit('setTimeLines', { timelines:timelines, date:util.getTodayDate()}));
+        }else{
+            commit('showTimeLines', util.getTodayDate());
         }
-
-        commit('showTimeLines', util.getTodayDate());
     },
 
     showYesterdayTimeLines ({ commit }) {
-        if(state.timelines[util.getYesterdayDate()].length === 0) {
-            dao.getYesterdayTimeLines(timelines => commit('setTimeLines', timelines, util.getYesterdayDate()));
+        if(state[util.getYesterdayDate()].length === 0) {
+            dao.getYesterdayTimeLines(timelines => commit('setTimeLines', { timelines:timelines, date:util.getYesterdayDate()}));
+        }else{
+            commit('showTimeLines', util.getYesterdayDate());
         }
-
-        commit('showTimeLines', util.getYesterdayDate());
     },
 };
 
 // mutations
 const mutations = {
     initTimeLines (state, timeLines) {
-        state.timelines[util.getTodayDate()] = timeLines ;
-        state.timelines.show = timeLines ;
+        state[util.getTodayDate()] = timeLines ;
+        state.show = timeLines ;
     },
 
-    setTimeLines (state, timeLines, date) {
-        state.timelines[date] = timeLines ;
+    setTimeLines (state, payload) {
+        state[payload.date] = payload.timelines ;
+        state.show = payload.timelines ;
     },
 
     showTimeLines (state, date) {
-        state.timelines.show = state.timelines[date] ;
+        state.show = state[date] ;
     },
 };
 

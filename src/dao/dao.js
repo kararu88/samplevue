@@ -1,19 +1,19 @@
-import TimeLineModel from "@dao/timelinemodel";
+import TimeLineModel from "./timelinemodel";
 import util from "@/util"
 
 export default {
 
     getTimeLinesFromMyJson(cb , url) {
+        let timeLines = null;
+
         // fetch('https://71i2no6je7.execute-api.ap-northeast-1.amazonaws.com/default/getCurrentSec')
         fetch(url,{mode:'cors'})
             .then(response => response.json())
             .then(json => {
-                timeLines.push(new TimeLineModel(
-                    json.timelines[0]
-                ));
+                timeLines = util.buildTimeLineModels(json.timelines);
                 cb(timeLines);
             });
-    }
+    },
     /**
      * 非同期処理のため、callback関数により値を反映させる。
      *
@@ -23,18 +23,17 @@ export default {
      */
     getTimeLines(cb , date){
 
-        let timeLines = [];
         console.log(date);
 
         switch(date){
-            [util.getYesterdayDate()] :
-                this.getTimeLinesFromMyJson(cb , '');
+            case util.getTodayDate() :
+                this.getTimeLinesFromMyJson(cb , 'http://api.myjson.com/bins/zxl2s');
                 break;
-            [util.getTodayDate()] :
-                this.getTimeLinesFromMyJson(cb , '');
+            case util.getYesterdayDate():
+                this.getTimeLinesFromMyJson(cb , 'http://api.myjson.com/bins/wzbgk');
                 break;
             default:
-                this.getTimeLinesFromMyJson(cb , '');
+                this.getTimeLinesFromMyJson(cb , 'http://api.myjson.com/bins/txbl0');
                 break;
         }
     },
@@ -44,7 +43,6 @@ export default {
     },
 
     getTodayTimeLines(cb){
-        let today = new Date().toISOString().substr(0,10);
         this.getTimeLines(cb,util.getTodayDate());
     },
 

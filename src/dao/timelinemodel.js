@@ -8,7 +8,6 @@ export default class {
         this.start_time = start_time;
         this.end_time = end_time;
         this.actual_time = actual_time;
-
     }
 
     getJson(){

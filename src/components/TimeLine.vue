@@ -1,25 +1,38 @@
 <template>
-    <div class="TimeLine">
-        <b-button-group>
-            <b-button v-on:click="showTodayTimeLines">today</b-button>
-            <b-button v-on:click="showYesterdayTimeLines">yesterday</b-button>
-        </b-button-group>
-        <b-table striped hover :items="getLength.timelines.show"></b-table>
+    <div id="timeline">
+        <b-row>
+        <b-col>
+            <b-button-group>
+                <b-button v-on:click="showTodayTimeLines">today</b-button>
+                <b-button v-on:click="showYesterdayTimeLines">yesterday</b-button>
+            </b-button-group>
+        </b-col>
+        </b-row>
+
+        <div v-for="timeLine of getTimeLine.show">
+            <Achievement v-bind:timeline="timeLine"/>
+        </div>
+
     </div>
 </template>
 
 <script>
-    import {mapState,mapActions} from 'vuex'
+    import {mapActions} from 'vuex'
+    import Achievement from '@/components/Achievement'
 
     export default {
         name: "TimeLine",
+
+        components: {
+            Achievement,
+        },
 
         created () {
             this.$store.dispatch('timeline/initTimeLines');
         },
 
         computed: {
-            getLength() {
+            getTimeLine() {
                 return this.$store.state.timeline;
             }
         },
@@ -34,5 +47,9 @@
 </script>
 
 <style scoped>
-
+    #timeline {
+        margin-top:1em;
+        padding:4px;
+        border: darkgray solid 1px ;
+    }
 </style>
