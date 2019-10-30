@@ -2,7 +2,6 @@
   <div id="app">
     <b-container>
     <h1 id="title">作業実績記録アプリ</h1>
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <TaskForm/>
     <TimeLine/>
     </b-container>
