@@ -1,13 +1,13 @@
 <template>
 
     <b-form @reset="clearInputForm">
-        <b-form-row>
-            <b-col>
+
                 <b-form-group
                         id="input-group-1"
                         label="タスク名："
                         label-for="input-1"
                         label-cols-md="2"
+                        class="input-label"
                 >
                     <b-form-input
                             id="input-1"
@@ -15,14 +15,13 @@
                             type="text"
                             required
                             placeholder="タスク名を入力してください"
+                            size="lg"
                     ></b-form-input>
                 </b-form-group>
-            </b-col>
-        </b-form-row>
 
         <b-form-row>
-            <b-col>
-                <b-form-group id="input-group-2" label="作業開始時間:" label-for="input-2" label-cols-md="5">
+            <b-col md="5">
+                <b-form-group id="input-group-2" label="作業開始時間:" label-for="input-2" label-cols-md="5" class="input-label">
                     <b-form-input
                             id="input-2"
                             v-model="getStartTime"
@@ -30,8 +29,11 @@
                     ></b-form-input>
                 </b-form-group>
             </b-col>
-            <b-col>
-                <b-form-group id="input-group-3" label="作業終了時間:" label-for="input-3" label-cols-md="5">
+            <b-col md="2">
+                ～
+            </b-col>
+            <b-col md="5">
+                <b-form-group id="input-group-3" label="作業終了時間:" label-for="input-3" label-cols-md="5" class="input-label">
                     <b-form-input
                             id="input-3"
                             v-model="getEndTime"
@@ -43,7 +45,7 @@
 
         <b-form-row>
             <b-col>
-                <b-form-group id="input-group-4" label="作業実績時間:" label-for="input-4" label-cols-md="5">
+                <b-form-group id="input-group-4" label="作業実績時間:" label-for="input-4" label-cols-md="5" class="input-label">
                     <b-form-input
                             id="input-4"
                             v-model="actual_time"
@@ -89,5 +91,9 @@
 </script>
 
 <style scoped>
+
+    .input-label {
+        text-align : left ;
+    }
 
 </style>

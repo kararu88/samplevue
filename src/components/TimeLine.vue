@@ -5,6 +5,7 @@
             <b-button-group>
                 <b-button v-on:click="showTodayTimeLines">today</b-button>
                 <b-button v-on:click="showYesterdayTimeLines">yesterday</b-button>
+                <b-form-input id="input-type-5" type="date"></b-form-input>
             </b-button-group>
         </b-col>
         </b-row>
