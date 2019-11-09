@@ -1,20 +1,18 @@
+import util from '@/util/'
+import TimeLineModel from "../../dao/timelinemodel";
+
+const NULL_TIME_LINE = new TimeLineModel({});
 
 // initial state
 const state = {
-    pk: null,
-    appli_user_pk: null,
-    task_name: null,
-    start_time: null,
-    end_time: null,
-    actual_time: null,
-    append:null,
+    timeline : NULL_TIME_LINE
 };
 
 // getters
 const getters = {
 
-    getStartTime: state => state.start_time !== null ? state.start_time.substr(11) : null,
-    getEndTime: state => state.end_time !== null ? state.end_time.substr(11) : null,
+    getStartTime: state => state.timeline.start_time !== null ? state.timeline.start_time.format(util.FMT_TIME) : null,
+    getEndTime: state => state.timeline.end_time !== null ? state.timeline.end_time.format(util.FMT_TIME) : null,
 
 };
 
@@ -27,21 +25,27 @@ const actions = {
 const mutations = {
 
     setTimeLineData(state, timeline) {
-        state.pk = timeline.pk;
-        state.appli_user_pk = timeline.appli_user_pk;
-        state.task_name = timeline.task_name;
-        state.start_time = timeline.start_time;
-        state.end_time = timeline.end_time;
-        state.actual_time = timeline.actual_time;
+        state.timeline = timeline;
+    },
+
+    setTimeLineDataTaskName(state, taskName) {
+        state.timeline.task_name = taskName;
+    },
+
+    setTimeLineDataStartTime(state, startTime) {
+        state.timeline.start_time = startTime;
+    },
+
+    setTimeLineDataEndTime(state, endTime) {
+        state.timeline.end_time = endTime;
+    },
+
+    setTimeLineDataActualTime(state, actualTime) {
+        state.timeline.actual_time = actualTime;
     },
 
     clearInputForm(state) {
-        state.pk = null;
-        state.appli_user_pk = null;
-        state.task_name = null;
-        state.start_time = null;
-        state.end_time = null;
-        state.actual_time = null;
+        state.timeline = NULL_TIME_LINE;
     },
 };
 

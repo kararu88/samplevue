@@ -1,6 +1,6 @@
 <template>
 
-    <b-form @reset="clearInputForm">
+    <b-form @submit.prevent="submitInputForm" @reset="clearInputForm">
 
         <b-form-group
                 id="input-group-1"
@@ -77,16 +77,24 @@
         methods :{
             ...mapMutations('inputform',[
                 'clearInputForm',
+                'setTimeLineData',
+                'setTimeLineDataTaskName',
+                'setTimeLineDataStartTime',
+                'setTimeLineDataEndTime',
+                'setTimeLineDataActualTime',
             ]),
+            submitInputForm() {
+                this.setTimeLineDataTaskName(this.task_name);
+                this.setTimeLineDataStartTime(this.appli_user_pk);
+            }
         },
         computed :{
-
             ...mapState({
-                pk: state => state.inputform.pk,
-                appli_user_pk: state => state.inputform.appli_user_pk,
-                task_name: state => state.inputform.task_name,
-                actual_time: state => state.inputform.actual_time,
-                append: state => state.inputform.append,
+                pk: state => state.inputform.timeline.pk,
+                appli_user_pk: state => state.inputform.timeline.appli_user_pk,
+                task_name: state => state.inputform.timeline.task_name,
+                actual_time: state => state.inputform.timeline.actual_time,
+                append: state => state.inputform.timeline.append,
             }),
 
             ...mapGetters('inputform',[

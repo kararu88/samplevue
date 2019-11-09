@@ -1,29 +1,22 @@
-import TimeLineModel from '@/dao/timelinemodel'
+import moment from 'moment'
+// TODO getTodayDateと
+
+const FMT_TIME = "HH:mm" ;
+const FMT_DATE = "YYYY-MM-DD";
 
 const getTodayDate = () => {
-    let today = new Date();
-    return today.toISOString().substr(0,10);
+    let today = new moment();
+    return today.format(FMT_DATE);
 };
 
 const getYesterdayDate = () => {
-    let today = new Date();
-    today.setDate(today.getDate() - 1);
-    return today.toISOString().substr(0,10);
-};
-
-const buildTimeLineModels = (timelinesJson) => {
-
-    const TimeLineModels = [];
-
-    for(let timelineJson of timelinesJson){
-        TimeLineModels.push(new TimeLineModel(timelineJson));
-    }
-
-    return TimeLineModels;
+    let yesterday = new moment().add( - 1, 'd');
+    return yesterday.format(FMT_DATE);
 };
 
 export default {
+    FMT_TIME,
+    FMT_DATE,
     getTodayDate,
     getYesterdayDate,
-    buildTimeLineModels,
 }

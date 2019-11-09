@@ -1,6 +1,7 @@
 <template>
-    <b-row class="achv-row" :class="[{ 'mouse-over' : isMouseOver } , { 'row-selected' : isRowSelected }]"
-           @click="setTimeLineAndRowSelected(timeline,true)"
+
+    <b-row class="achv-row" :class="[{ 'mouse-over' : isMouseOver } , { 'row-selected' : isEditing(date, timeline.pk) }]"
+           @click="setTimeLineAndRowSelected()"
            @mouseover="setMouseover(true)"
            @mouseout="setMouseover(false)"
     >
@@ -8,10 +9,10 @@
             {{ timeline.task_name }}
         </b-col>
         <b-col md="2" class="achv-cell">
-            {{ timeline.start_time.substring(11,16) }}
+            {{ getTimelineStartTime }}
         </b-col>
         <b-col md="2" class="achv-cell">
-            {{ timeline.end_time.substring(11,16) }}
+            {{ getTimelineEndTime }}
         </b-col>
         <b-col md="2" class="achv-cell">
             {{ timeline.actual_time.substring(0,5) }}
@@ -23,36 +24,64 @@
 </template>
 
 <script>
-    import {mapMutations} from 'vuex'
+    import {mapGetters, mapMutations} from 'vuex'
+    import util from '@/util/'
 
     export default {
         name: "Achievement",
         props:{
-            timeline: {
-                type:Object,
-                required:true
+            date: {
+                type : String,
+                required : true,
             },
+            pk: {
+                type : Number,
+                required : true,
+            }
         },
         data(){
             return {
+                timeline: null,
                 isMouseOver : false,
-                isRowSelected : false ,
             }
         },
+        beforeMount(){
+            this.timeline = this.$store.getters['timeline/getTimeLineAt'](this.date, this.pk);
+        },
+
+        computed: {
+            ...mapGetters('timeline',[
+                'isEditing',
+            ]),
+            getTimelineStartTime(){
+                return this.timeline.start_time.format(util.FMT_TIME);
+            },
+            getTimelineEndTime(){
+                return this.timeline.end_time.format(util.FMT_TIME);
+            },
+        },
+
         methods: {
             ...mapMutations('inputform',[
                 'setTimeLineData',
+                'setEditing',
             ]),
-            setTimeLineAndRowSelected(timeline, isSelected){
-                this.setTimeLineData(timeline);
-                this.setRowSelected(isSelected);
+            ...mapMutations('timeline',[
+                'setEditing',
+                'clearAllEditing',
+            ]),
+            setTimeLineAndRowSelected(){
+                this.clearAllEditing(this.date);
+                this.setTimeLineData(this.timeline);
+                this.setEditing({
+                    date:this.date,
+                    pk:this.timeline.pk,
+                    editing:true
+                });
             },
             setMouseover(isOver) {
                 this.isMouseOver = isOver;
             },
-            setRowSelected(isSelected) {
-                this.isRowSelected = isSelected;
-            }
         },
     }
 </script>

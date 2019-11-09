@@ -20,7 +20,8 @@
                 </b-col>
             </b-row>
 
-            <b-row v-if="getTimeLine.show.length">
+            <!-- タイトル行 -->
+            <b-row v-if="getTimeLinePkListAt(inputdate).length">
                 <b-col md="3" class="achv-title-row">
                     タスク名
                 </b-col>
@@ -38,23 +39,26 @@
                 </b-col>
             </b-row>
 
-            <div v-for="timeLine of getTimeLine.show" :key="timeLine">
-                <Achievement :timeline="timeLine"/>
+
+            <div v-for="achi_pk of getTimeLinePkListAt(inputdate)" :key="achi_pk">
+                <Achievement :date="inputdate" :pk="achi_pk" />
             </div>
+
         </b-col>
     </b-row>
 </template>
 
 <script>
-    import {mapActions} from 'vuex'
+    import {mapGetters, mapActions} from 'vuex'
     import Achievement from '@/components/Achievement'
+    import util from "@/util"
 
     export default {
         name: "TimeLine",
 
         data () {
             return {
-                inputdate: '2019-10-30',
+                inputdate: util.getTodayDate(),
             }
         },
 
@@ -67,16 +71,27 @@
         },
 
         computed: {
-            getTimeLine() {
-                return this.$store.state.timeline;
-            }
+            ...mapGetters('timeline',[
+                'getTimeLinePkListAt',
+            ])
         },
 
         methods: {
-                 ...mapActions('timeline',[
-                    'showTodayTimeLines',
-                    'showYesterdayTimeLines',
-                     ])
+            showYesterdayTimeLines(){
+                this.getYesterdayTimeLines();
+                this.inputdate = util.getYesterdayDate();
+            },
+
+            showTodayTimeLines(){
+                this.getTodayTimeLines();
+                this.inputdate = util.getTodayDate();
+            },
+
+            ...mapActions('timeline', [
+                'getTodayTimeLines',
+                'getYesterdayTimeLines',
+            ]),
+
          }
     }
 </script>

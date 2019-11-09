@@ -10,7 +10,7 @@ export default {
         fetch(url,{mode:'cors'})
             .then(response => response.json())
             .then(json => {
-                timeLines = util.buildTimeLineModels(json.timelines);
+                timeLines = TimeLineModel.buildTimeLineModels(json.timelines);
                 cb(timeLines);
             });
     },
@@ -23,27 +23,18 @@ export default {
      */
     getTimeLines(cb , date){
 
-        console.log(date);
-
         switch(date){
             case util.getTodayDate() :
-                this.getTimeLinesFromMyJson(cb , 'http://api.myjson.com/bins/zxl2s');
+                this.getTimeLinesFromMyJson(cb , 'http://api.myjson.com/bins/1g8syw');
                 break;
             case util.getYesterdayDate():
-                this.getTimeLinesFromMyJson(cb , 'http://api.myjson.com/bins/wzbgk');
+                this.getTimeLinesFromMyJson(cb , 'https://api.myjson.com/bins/1fndd4');
                 break;
             default:
-                this.getTimeLinesFromMyJson(cb , 'http://api.myjson.com/bins/txbl0');
+                this.getTimeLinesFromMyJson(cb , 'http://api.myjson.com/bins/1c4ww8');
                 break;
         }
     },
 
-    getYesterdayTimeLines(cb){
-        this.getTimeLines(cb,util.getYesterdayDate());
-    },
-
-    getTodayTimeLines(cb){
-        this.getTimeLines(cb,util.getTodayDate());
-    },
 
 }
