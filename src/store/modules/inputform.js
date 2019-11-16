@@ -1,31 +1,44 @@
-import util from '@/util/'
+import util from '@/util/';
 import TimeLineModel from "../../dao/timelinemodel";
 
-const NULL_TIME_LINE = new TimeLineModel({});
+const NEW_TIME_LINE = new TimeLineModel({
+    pk : null,
+    appli_user_pk : 6 ,
+    task_name : "",
+    start_time : util.getTodayDate(),
+    end_time : util.getTodayDate(),
+    actual_time : "00:00"
+    }
+);
 
 // initial state
 const state = {
-    timeline : NULL_TIME_LINE
+    timeline : NEW_TIME_LINE
 };
 
 // getters
 const getters = {
-
-    getStartTime: state => state.timeline.start_time !== null ? state.timeline.start_time.format(util.FMT_TIME) : null,
-    getEndTime: state => state.timeline.end_time !== null ? state.timeline.end_time.format(util.FMT_TIME) : null,
-
+    isNewTimeLine: state => state.timeline.pk === null ,
 };
 
 // actions
 const actions = {
 
+    createTimeLine ({ commit }) {
+        console.log("create");
+        commit('clearInputForm');
+    },
+    updateTimeLine ({ commit }) {
+        console.log("update");
+        commit('clearInputForm');
+    },
 };
 
 // mutations
 const mutations = {
 
     setTimeLineData(state, timeline) {
-        state.timeline = timeline;
+        state.timeline = TimeLineModel.clone(timeline);
     },
 
     setTimeLineDataTaskName(state, taskName) {
@@ -45,8 +58,12 @@ const mutations = {
     },
 
     clearInputForm(state) {
-        state.timeline = NULL_TIME_LINE;
+        state.timeline = NEW_TIME_LINE;
     },
+
+    isNullTimeLine(state){
+        return state.timeline === NEW_TIME_LINE ;
+    }
 };
 
 export default {

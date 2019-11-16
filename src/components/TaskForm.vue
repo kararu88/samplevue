@@ -1,6 +1,6 @@
 <template>
 
-    <b-form @submit.prevent="submitInputForm" @reset="clearInputForm">
+    <b-form @submit.prevent="submitInputForm" @reset="resetInputForm">
 
         <b-form-group
                 id="input-group-1"
@@ -26,7 +26,7 @@
                               class="input-label">
                     <b-form-input
                             id="input-2"
-                            v-model="getStartTime"
+                            v-model="start_time"
                             type="time"
                     ></b-form-input>
                 </b-form-group>
@@ -39,7 +39,7 @@
                               class="input-label">
                     <b-form-input
                             id="input-3"
-                            v-model="getEndTime"
+                            v-model="end_time"
                             type="time"
                     ></b-form-input>
                 </b-form-group>
@@ -62,7 +62,7 @@
 
         <b-form-row>
             <b-col offset-md="9" md="3">
-                <b-button type="submit" variant="primary">{{ pk === null ? '追加' : '更新' }}</b-button>
+                <b-button type="submit" variant="primary">{{ isNewTimeLine  ? '追加' : '更新' }}</b-button>
                 <b-button type="reset" variant="danger">リセット</b-button>
             </b-col>
         </b-form-row>
@@ -70,36 +70,95 @@
 </template>
 
 <script>
-    import {mapGetters, mapMutations, mapState} from 'vuex'
+    import util from '@/util/'
+    import dao from "@/dao/dao";
+    import {mapActions, mapGetters, mapMutations} from 'vuex'
 
     export default {
         name: "TaskForm",
         methods :{
             ...mapMutations('inputform',[
-                'clearInputForm',
                 'setTimeLineData',
                 'setTimeLineDataTaskName',
                 'setTimeLineDataStartTime',
                 'setTimeLineDataEndTime',
                 'setTimeLineDataActualTime',
+                'clearInputForm',
+                'isNullTimeLine',
             ]),
+
+            ...mapActions('inputform',[
+                'createTimeLine',
+                'updateTimeLine',
+            ]),
+
             submitInputForm() {
-                this.setTimeLineDataTaskName(this.task_name);
-                this.setTimeLineDataStartTime(this.appli_user_pk);
+                dao.createTimeLines(this.$store.state.inputform.timeline);
+            },
+
+            resetInputForm(){
+                if(this.isNullTimeLine()){
+                    return ;
+                }
+                this.clearInputForm();
             }
         },
         computed :{
-            ...mapState({
-                pk: state => state.inputform.timeline.pk,
-                appli_user_pk: state => state.inputform.timeline.appli_user_pk,
-                task_name: state => state.inputform.timeline.task_name,
-                actual_time: state => state.inputform.timeline.actual_time,
-                append: state => state.inputform.timeline.append,
-            }),
+
+            task_name :{
+                get (){
+                    return this.$store.state.inputform.timeline.task_name;
+                },
+                set (value){
+                    this.$store.commit('inputform/setTimeLineDataTaskName',value);
+                }
+            },
+
+            start_time :{
+                get (){
+                    return this.$store.state.inputform.timeline.start_time.format(util.FMT_TIME);
+                },
+                set (time){
+
+                    const [hour,  minute, second] = time.split(":");
+                    const start_time = this.$store.state.inputform.timeline.start_time;
+
+                    start_time.hour(hour);
+                    start_time.minute(minute);
+                    start_time.second(second);
+
+                    this.$store.commit('inputform/setTimeLineDataStartTime',start_time);
+                }
+            },
+
+            end_time :{
+                get (){
+                    return this.$store.state.inputform.timeline.end_time.format(util.FMT_TIME);
+                },
+                set (time){
+
+                    const [hour,  minute, second] = time.split(":");
+                    const end_time = this.$store.state.inputform.timeline.end_time;
+
+                    end_time.hour(hour);
+                    end_time.minute(minute);
+                    end_time.second(second);
+
+                    this.$store.commit('inputform/setTimeLineDataEndTime',end_time);
+                }
+            },
+
+            actual_time :{
+                get (){
+                    return this.$store.state.inputform.timeline.actual_time;
+                },
+                set (value){
+                    this.$store.commit('inputform/setTimeLineDataActualTime',value);
+                }
+            },
 
             ...mapGetters('inputform',[
-                'getStartTime',
-                'getEndTime',
+                'isNewTimeLine',
             ]),
         },
     }

@@ -36,5 +36,8 @@ export default {
         }
     },
 
-
+    createTimeLines(timeline){
+        // TODO moment.js の json 出力形式を変更できないか検討する。
+        console.log(JSON.stringify(timeline));
+    }
 }

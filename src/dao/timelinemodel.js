@@ -12,6 +12,19 @@ export default class TimeLineModel{
         return TimeLineModels;
     }
 
+    static clone(timeline){
+        return new TimeLineModel(
+            {
+                pk : timeline.pk,
+                appli_user_pk : timeline.appli_user_pk,
+                task_name : timeline.task_name,
+                start_time : moment(timeline.start_time),
+                end_time : moment(timeline.end_time),
+                actual_time : timeline.actual_time
+            }
+        )
+    }
+
     constructor({pk = null, appli_user_pk = null, task_name = null, start_time = null ,end_time = null ,actual_time = null}) {
         this.pk = pk;
         this.appli_user_pk = appli_user_pk;
