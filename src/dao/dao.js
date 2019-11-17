@@ -36,8 +36,20 @@ export default {
         }
     },
 
+
+    // https://hw95acmuxa.execute-api.ap-northeast-1.amazonaws.com/default/GetTodayDateTime
     createTimeLines(timeline){
-        // TODO moment.js の json 出力形式を変更できないか検討する。
-        console.log(JSON.stringify(timeline));
+
+        const url ="https://hw95acmuxa.execute-api.ap-northeast-1.amazonaws.com/default/GetTodayDateTime";
+        const method = "PUT";
+        const body = timeline.toJSON();
+        const headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        };
+        fetch(url, {mode:'cors', method, headers, body})
+            .then((res) => res.json())
+            .then(console.log)
+            .catch(console.error);
     }
 }

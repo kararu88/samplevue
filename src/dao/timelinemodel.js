@@ -1,4 +1,4 @@
-import moment from 'moment'
+import moment from 'moment';
 
 export default class TimeLineModel{
 
@@ -34,7 +34,12 @@ export default class TimeLineModel{
         this.actual_time = actual_time;
     }
 
-    getJson(){
+    toJSON(){
+
+        // JSON出力するときに
+        this.start_time.toJSON = () =>  this.start_time.format() ;
+        this.end_time.toJSON = () =>  this.end_time.format() ;
+
         return JSON.stringify(this);
     }
 
